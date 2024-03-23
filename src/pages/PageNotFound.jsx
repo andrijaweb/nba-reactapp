@@ -4,7 +4,7 @@ function PageNotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex items-center justify-center text-stone-900 dark:text-stone-100">
+    <div className="flex items-center justify-center text-stone-900 dark:text-stone-100 mt-16">
       <div className="text-center">
         <div className="flex items-center justify-center">
           <img src="../../error-404.svg" alt="4Ball4" />
