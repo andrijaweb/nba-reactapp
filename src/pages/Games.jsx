@@ -6,7 +6,7 @@ import { getAllTeams, getBoxScores } from "../services/apiBasketball";
 import BoxScore from "../ui/BoxScore";
 
 function Games() {
-  const [date, setDate] = useState("2024-MAR-23");
+  const [date, setDate] = useState("2024-MAR-24");
   const [isLoading, setIsLoading] = useState(false);
   const [boxScores, setBoxScores] = useState(null);
   const [teams, setTeams] = useState([]);

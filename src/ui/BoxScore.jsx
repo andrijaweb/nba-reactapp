@@ -1,3 +1,5 @@
+import PlayerMvp from "./PlayerMvp";
+
 function BoxScore({ boxScore, teams }) {
   if (!boxScore || teams.length === 0) return;
 
@@ -11,10 +13,15 @@ function BoxScore({ boxScore, teams }) {
       AwayTeam: teamAwayName,
       Status: status,
     },
+    PlayerGames: playerGames,
   } = boxScore;
 
   const teamHome = teams.filter((team) => team.TeamID === homeId);
   const teamAway = teams.filter((team) => team.TeamID === awayId);
+
+  const sortedPlayersByPoints = playerGames
+    .sort((a, b) => b.Points - a.Points)
+    .slice(0);
 
   return (
     <article className="px-8 py-8 bg-white rounded-md grid grid-cols-[1.5fr_1fr_0.5fr] mt-8">
@@ -43,8 +50,19 @@ function BoxScore({ boxScore, teams }) {
           </div>
         </div>
       </div>
-      <div>Test2</div>
-      <div>Test3</div>
+      {status === "Final" || status === "InProgress" ? (
+        <div>
+          <h3 className="text-xl font-bold mb-2">Game MVP:</h3>
+          <figure>
+            <div>
+              <PlayerMvp player={sortedPlayersByPoints.at(0)} />
+            </div>
+          </figure>
+        </div>
+      ) : null}
+      <p className="text-2xl flex items-center justify-center opacity-70">
+        {status}
+      </p>
     </article>
   );
 }
