@@ -4,12 +4,15 @@ import Spinner from "../ui/Spinner";
 
 import { getAllTeams, getBoxScores } from "../services/apiBasketball";
 import BoxScore from "../ui/BoxScore";
+import { formatDate } from "../utils/helpers";
 
 function Games() {
-  const [date, setDate] = useState("2024-MAR-24");
+  const [date, setDate] = useState(formatDate(new Date()));
   const [isLoading, setIsLoading] = useState(false);
   const [boxScores, setBoxScores] = useState(null);
   const [teams, setTeams] = useState([]);
+
+  console.log(date);
 
   useEffect(
     function () {
@@ -36,7 +39,7 @@ function Games() {
   return (
     <div>
       <div className="px-16">
-        <DateFilter />
+        <DateFilter date={date} setDate={setDate} />
         {boxScores.map((score, i) => (
           <BoxScore boxScore={score} teams={teams} key={i} />
         ))}

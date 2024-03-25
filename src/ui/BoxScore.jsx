@@ -24,7 +24,7 @@ function BoxScore({ boxScore, teams }) {
     .slice(0);
 
   return (
-    <article className="px-8 py-8 bg-white rounded-md grid grid-cols-[1.5fr_1fr_0.5fr] mt-8">
+    <article className="px-8 py-8 bg-white rounded-md grid grid-cols-[1fr_1fr_0.5fr] mt-8">
       <div className="flex items-center gap-12">
         <div className="text-center flex items-center gap-4">
           <div>
