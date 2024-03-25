@@ -52,7 +52,7 @@ function BoxScore({ boxScore, teams }) {
       </div>
       {status === "Final" || status === "InProgress" ? (
         <div>
-          <h3 className="text-xl font-bold mb-2">Game MVP:</h3>
+          <h3 className="text-xl font-bold mb-2 text-blue-800">Game MVP:</h3>
           <figure>
             <div>
               <PlayerMvp player={sortedPlayersByPoints.at(0)} />

@@ -15,7 +15,7 @@ export async function getNews() {
 
 export async function getAllTeams() {
   try {
-    const res = await fetch(`${BASE_URL}/AllTeams?key=${API_KEY}`);
+    const res = await fetch(`${BASE_URL}/teams?key=${API_KEY}`);
     if (!res.ok) throw new Error("Error while trying to fetch AllTeams");
 
     const data = await res.json();

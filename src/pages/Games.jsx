@@ -12,16 +12,12 @@ function Games() {
   const [boxScores, setBoxScores] = useState(null);
   const [teams, setTeams] = useState([]);
 
-  console.log(date);
-
   useEffect(
     function () {
       async function fetchBoxScores() {
         setIsLoading(true);
         const dataBoxScores = await getBoxScores(date);
         const dataTeams = await getAllTeams();
-        console.log(dataBoxScores);
-        console.log(dataTeams);
 
         setBoxScores(dataBoxScores);
         setTeams(dataTeams);

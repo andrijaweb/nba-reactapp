@@ -1,4 +1,4 @@
-import { formatDate, getWeekdayAndDate } from "../utils/helpers";
+import { getWeekdayAndDate } from "../utils/helpers";
 import DateButton from "./DateButton";
 
 function DateSingleFilter({ date, setDate }) {
