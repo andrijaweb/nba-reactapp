@@ -1,10 +1,26 @@
+import { useNavigate } from "react-router-dom";
+
 function TeamMini({ team }) {
+  const navigate = useNavigate();
+
   if (!team) return;
 
-  const { WikipediaLogoUrl: teamLogoUrl, Name: name, City: city } = team;
+  const {
+    TeamID: id,
+    WikipediaLogoUrl: teamLogoUrl,
+    Name: name,
+    City: city,
+  } = team;
+
+  function handleNavigate() {
+    navigate(`${id}`);
+  }
 
   return (
-    <figure className="flex items-center gap-6 mb-4">
+    <figure
+      className="flex items-center gap-6 mb-4 cursor-pointer"
+      onClick={handleNavigate}
+    >
       <img className="max-w-10" src={teamLogoUrl} alt="Team Logo" />
       <div>
         <h4 className="font-bold">

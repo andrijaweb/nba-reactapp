@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
 import { getAllTeams } from "../services/apiBasketball";
 import TeamsConference from "../ui/TeamsDivision";
+import Spinner from "../ui/Spinner";
 
 function Teams() {
   const [allTeams, setAllTeams] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(function () {
     async function fetchAllTeams() {
+      setIsLoading(true);
+
       const dataTeams = await getAllTeams();
       setAllTeams(dataTeams);
+
+      setIsLoading(false);
     }
     fetchAllTeams();
   }, []);
-  console.log(allTeams);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="mx-16 px-8 py-4 bg-white rounded-md">

@@ -36,3 +36,15 @@ export async function getBoxScores(date) {
     console.error(error);
   }
 }
+
+export async function getTeamSeasonStats() {
+  try {
+    const res = await fetch(`${BASE_URL}/TeamSeasonStats/2024?key=${API_KEY}`);
+    if (!res.ok) throw new Error("Error while trying to fetch BoxScores");
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}

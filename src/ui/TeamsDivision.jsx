@@ -18,13 +18,13 @@ function TeamsConference({ allTeams }) {
   return (
     <>
       <article>
-        <h3 className="uppercase font-bold text-lg mb-4">Southeast:</h3>
+        <h3 className="uppercase font-bold text-lg mb-4">Atlantic:</h3>
         {atlanticTeam.map((team) => (
           <TeamMini key={team.TeamID} team={team} />
         ))}
       </article>
       <article>
-        <h3 className="uppercase font-bold text-lg mb-4">Southeast:</h3>
+        <h3 className="uppercase font-bold text-lg mb-4">Central:</h3>
         {centralTeam.map((team) => (
           <TeamMini key={team.TeamID} team={team} />
         ))}
@@ -36,19 +36,19 @@ function TeamsConference({ allTeams }) {
         ))}
       </article>
       <article>
-        <h3 className="uppercase font-bold text-lg mb-4">Southeast:</h3>
+        <h3 className="uppercase font-bold text-lg mb-4">Northwest:</h3>
         {northWestTeam.map((team) => (
           <TeamMini key={team.TeamID} team={team} />
         ))}
       </article>
       <article>
-        <h3 className="uppercase font-bold text-lg mb-4">Southeast:</h3>
+        <h3 className="uppercase font-bold text-lg mb-4">Pacific:</h3>
         {pacificTeam.map((team) => (
           <TeamMini key={team.TeamID} team={team} />
         ))}
       </article>
       <article>
-        <h3 className="uppercase font-bold text-lg mb-4">Southeast:</h3>
+        <h3 className="uppercase font-bold text-lg mb-4">Southwest:</h3>
         {southWestTeam.map((team) => (
           <TeamMini key={team.TeamID} team={team} />
         ))}
