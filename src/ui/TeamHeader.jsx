@@ -1,5 +1,9 @@
+import { Link, useNavigate } from "react-router-dom";
+
 function TeamHeader({ team, teamSeasonStats }) {
   //   if (team.length === 0) return;
+
+  const navigate = useNavigate();
 
   const {
     WikipediaLogoUrl: teamLogoUrl,
@@ -19,10 +23,26 @@ function TeamHeader({ team, teamSeasonStats }) {
   console.log(team);
   console.log(teamSeasonStats);
 
+  function handleNavigateBack() {
+    navigate(-1);
+  }
+
   return (
     <div className="mx-16 text-stone-900 bg-white rounded-md py-6 px-8 flex items-center justify-between">
       <div className="flex items-center gap-8">
-        <img className="max-w-32 max-h-32" src={teamLogoUrl} alt="Team Logo" />
+        <div>
+          <p
+            onClick={handleNavigateBack}
+            className="text-blue-500 mb-4 cursor-pointer"
+          >
+            &larr; Go Back
+          </p>
+          <img
+            className="max-w-32 max-h-32"
+            src={teamLogoUrl}
+            alt="Team Logo"
+          />
+        </div>
         <div>
           <h3 className="font-extrabold text-2xl">{name}</h3>
           <p style={{ color: `#${primaryColor}` }}>
