@@ -1,4 +1,5 @@
 const BASE_URL = "https://api.sportsdata.io/v3/nba/stats/json/";
+const SCORES_BASE_URL = "https://api.sportsdata.io/v3/nba/scores/json/";
 const API_KEY = "1b1692b63f9d497aab312a0b0efbed7a";
 
 export async function getNews() {
@@ -40,7 +41,22 @@ export async function getBoxScores(date) {
 export async function getTeamSeasonStats() {
   try {
     const res = await fetch(`${BASE_URL}/TeamSeasonStats/2024?key=${API_KEY}`);
-    if (!res.ok) throw new Error("Error while trying to fetch BoxScores");
+    if (!res.ok)
+      throw new Error("Error while trying to fetch Team Season Stats.");
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function getActivePlayers() {
+  try {
+    const res = await fetch(
+      `${SCORES_BASE_URL}/PlayersActiveBasic?key=${API_KEY}`
+    );
+    if (!res.ok) throw new Error("Error while trying to fetch Players.");
 
     const data = await res.json();
     return data;
