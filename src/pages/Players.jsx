@@ -4,10 +4,13 @@ import { getActivePlayers } from "../services/apiBasketball";
 import Spinner from "../ui/Spinner";
 
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import PlayersTableOperations from "../ui/PlayersTableOperations";
+import { useSearchParams } from "react-router-dom";
 
 function Players() {
   const [players, setPlayers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams] = useSearchParams();
 
   useEffect(function () {
     async function fetchPlayers() {
@@ -23,7 +26,22 @@ function Players() {
 
   if (isLoading) return <Spinner />;
 
-  const playersZeroToFive = players.slice(0, 5);
+  // 1) Filter
+  const filterValue = searchParams.get("team") || "all";
+
+  let filteredPlayers;
+  if (filterValue === "all") filteredPlayers = players;
+  console.log(filterValue);
+  if (filterValue !== "all")
+    filteredPlayers = players.filter((player) => player.Team === filterValue);
+
+  // 2) Sort
+  const sortBy = searchParams.get("sortBy") || "name-asc";
+  const [field, direction] = sortBy.split("-");
+  const modifier = direction === "asc" ? 1 : -1;
+  const sortedPlayers = filteredPlayers.sort(
+    (a, b) => (a[field] - b[field]) * modifier
+  );
 
   return (
     <div className="px-16">
@@ -33,47 +51,7 @@ function Players() {
         </h1>
         <div>
           <div className="flex items-center justify-between my-4">
-            <div className="flex items-center gap-4">
-              <select className="block w-full py-2 pl-2 pr-4 rounded-md">
-                <option value="">Sort By</option>
-                <option value="name">Name</option>
-                <option value="height">Height</option>
-                <option value="weight">Weight</option>
-              </select>
-
-              <select className="block w-full py-2 pl-2 pr-4 rounded-md">
-                <option value="">Team</option>
-                <option value="76ers">76ers</option>
-                <option value="Bucks">Bucks</option>
-                <option value="Bulls">Bulls</option>
-                <option value="Cavaliers">Cavaliers</option>
-                <option value="Celtics">Celtics</option>
-                <option value="Clippers">Clippers</option>
-                <option value="CGrizzliesHI">Grizzlies</option>
-                <option value="Hawks">Hawks</option>
-                <option value="Heat">Heat</option>
-                <option value="Hornets">Hornets</option>
-                <option value="Kings">Kings</option>
-                <option value="Knicks">Knicks</option>
-                <option value="Lakers">Lakers</option>
-                <option value="Magic">Magic</option>
-                <option value="Mavericks">Mavericks</option>
-                <option value="Nets">Nets</option>
-                <option value="Nuggets">Nuggets</option>
-                <option value="Pacers">Pacers</option>
-                <option value="Pelicans">Pelicans</option>
-                <option value="Pistons">Pistons</option>
-                <option value="Raptors">Raptors</option>
-                <option value="Rockets">Rockets</option>
-                <option value="Spurs">Spurs</option>
-                <option value="Suns">Suns</option>
-                <option value="Thunder">Thunder</option>
-                <option value="Timberwolves">Timberwolves</option>
-                <option value="Trail Blazers">Trail Blazers</option>
-                <option value="Warriors">Warriors</option>
-                <option value="Wizards">Wizards</option>
-              </select>
-            </div>
+            <PlayersTableOperations />
             <div className="flex items-center gap-8">
               <p className="opacity-70">Showing 1 to 10 of 537 results.</p>
               <div className="flex gap-2">
@@ -87,7 +65,7 @@ function Players() {
             </div>
           </div>
         </div>
-        <PlayersTable players={playersZeroToFive} />
+        <PlayersTable players={sortedPlayers.splice(0, 5)} />
       </div>
     </div>
   );
