@@ -3,8 +3,6 @@ import PlayerDetails from "./PlayerDetails";
 function PlayersTable({ players }) {
   if (!players || players.length === 0) return;
 
-  console.log(players);
-
   return (
     <table className="w-full border-collapse border-spacing-0 border-b">
       <thead>

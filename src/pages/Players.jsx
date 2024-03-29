@@ -3,35 +3,46 @@ import PlayersTable from "../ui/PlayersTable";
 import { getActivePlayers } from "../services/apiBasketball";
 import Spinner from "../ui/Spinner";
 
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import PlayersTableOperations from "../ui/PlayersTableOperations";
 import { useSearchParams } from "react-router-dom";
+import Pagination from "../ui/Pagination";
+import { PAGE_SIZE } from "../utils/constants";
 
 function Players() {
   const [players, setPlayers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams] = useSearchParams();
 
-  useEffect(function () {
-    async function fetchPlayers() {
-      setIsLoading(true);
+  const currentPage = !searchParams.get("page")
+    ? 1
+    : Number(searchParams.get("page"));
 
-      const dataActivePlayers = await getActivePlayers();
-      setPlayers(dataActivePlayers);
+  useEffect(
+    function () {
+      async function fetchPlayers() {
+        setIsLoading(true);
 
-      setIsLoading(false);
-    }
-    fetchPlayers();
-  }, []);
+        const dataActivePlayers = await getActivePlayers();
+        setPlayers(dataActivePlayers);
+
+        setIsLoading(false);
+      }
+      fetchPlayers();
+    },
+    [currentPage]
+  );
 
   if (isLoading) return <Spinner />;
+  if (!players || players.lenght === 0) return;
+
+  const lastPlayersIndex = currentPage * PAGE_SIZE;
+  const firstPlayersIndex = lastPlayersIndex - PAGE_SIZE;
 
   // 1) Filter
   const filterValue = searchParams.get("team") || "all";
 
   let filteredPlayers;
   if (filterValue === "all") filteredPlayers = players;
-  console.log(filterValue);
   if (filterValue !== "all")
     filteredPlayers = players.filter((player) => player.Team === filterValue);
 
@@ -43,6 +54,11 @@ function Players() {
     (a, b) => (a[field] - b[field]) * modifier
   );
 
+  const playersByPage = sortedPlayers.slice(
+    firstPlayersIndex,
+    lastPlayersIndex
+  );
+
   return (
     <div className="px-16">
       <div className="p-8 rounded-md bg-white">
@@ -52,7 +68,8 @@ function Players() {
         <div>
           <div className="flex items-center justify-between my-4">
             <PlayersTableOperations />
-            <div className="flex items-center gap-8">
+            <Pagination count={sortedPlayers.length} />
+            {/* <div className="flex items-center gap-8">
               <p className="opacity-70">Showing 1 to 10 of 537 results.</p>
               <div className="flex gap-2">
                 <button className="cursor-pointer p-2 bg-stone-200 rounded-md">
@@ -62,10 +79,10 @@ function Players() {
                   <HiChevronRight className="text-2xl text-blue-500" />
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
-        <PlayersTable players={sortedPlayers.splice(0, 5)} />
+        <PlayersTable players={playersByPage} />
       </div>
     </div>
   );
