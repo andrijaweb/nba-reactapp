@@ -7,24 +7,25 @@ import Players from "./pages/Players";
 import Games from "./pages/Games";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./pages/AppLayout";
+import { NbaProvider } from "./contexts/nbaContext";
 
 function App() {
-  // const [isDarkMode, setIsDarkMode] = useState(false);
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route index element={<Navigate replace to="homepage" />} />
-          <Route path="homepage" element={<Homepage />} />
-          <Route path="teams" element={<Teams />} />
-          <Route path="teams/:id" element={<Team />} />
-          <Route path="players" element={<Players />} />
-          <Route path="games" element={<Games />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <NbaProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route index element={<Navigate replace to="homepage" />} />
+            <Route path="homepage" element={<Homepage />} />
+            <Route path="teams" element={<Teams />} />
+            <Route path="teams/:id" element={<Team />} />
+            <Route path="players" element={<Players />} />
+            <Route path="games" element={<Games />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </NbaProvider>
   );
 }
 

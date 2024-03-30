@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PlayerMvp from "./PlayerMvp";
 
 function BoxScore({ boxScore, teams }) {
@@ -28,12 +29,14 @@ function BoxScore({ boxScore, teams }) {
       <div className="flex items-center gap-12">
         <div className="text-center flex items-center gap-4">
           <div>
-            <img
-              className="w-12 h-12"
-              src={teamHome.at(0).WikipediaLogoUrl}
-              alt="Home Team Logo"
-            />
-            <p className="my-2 text-xl">{teamHomeName}</p>
+            <Link to={`/teams/${homeId}`}>
+              <img
+                className="w-12 h-12"
+                src={teamHome.at(0).WikipediaLogoUrl}
+                alt="Home Team Logo"
+              />
+              <p className="my-2 text-xl">{teamHomeName}</p>
+            </Link>
           </div>
           <p className="inline text-2xl font-extrabold">{scoreHome}</p>
         </div>
@@ -41,12 +44,14 @@ function BoxScore({ boxScore, teams }) {
         <div className="text-center flex items-center gap-4">
           <p className="inline text-2xl font-extrabold">{scoreAway}</p>
           <div>
-            <img
-              className="w-12 h-12"
-              src={teamAway.at(0).WikipediaLogoUrl}
-              alt="Away Team Logo"
-            />
-            <p className="my-2 text-xl">{teamAwayName}</p>
+            <Link to={`/teams/${awayId}`}>
+              <img
+                className="w-12 h-12"
+                src={teamAway.at(0).WikipediaLogoUrl}
+                alt="Away Team Logo"
+              />
+              <p className="my-2 text-xl">{teamAwayName}</p>
+            </Link>
           </div>
         </div>
       </div>

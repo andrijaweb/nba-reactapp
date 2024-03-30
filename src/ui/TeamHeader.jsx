@@ -1,15 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function TeamHeader({ team, teamSeasonStats }) {
-  //   if (team.length === 0) return;
-
   const navigate = useNavigate();
+
+  if (!team || !teamSeasonStats) return;
 
   const {
     WikipediaLogoUrl: teamLogoUrl,
     PrimaryColor: primaryColor,
     Division: division,
-    HeadCoach: coach,
     City: city,
   } = team;
 
@@ -19,9 +18,6 @@ function TeamHeader({ team, teamSeasonStats }) {
     Wins: wins,
     Losses: losses,
   } = teamSeasonStats;
-
-  console.log(team);
-  console.log(teamSeasonStats);
 
   function handleNavigateBack() {
     navigate(-1);

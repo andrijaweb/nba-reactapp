@@ -1,36 +1,25 @@
-import { useEffect, useState } from "react";
-import PlayersTable from "../ui/PlayersTable";
-import { getActivePlayers } from "../services/apiBasketball";
-import Spinner from "../ui/Spinner";
-
-import PlayersTableOperations from "../ui/PlayersTableOperations";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import Pagination from "../ui/Pagination";
+
+import { useNba } from "../contexts/nbaContext";
 import { PAGE_SIZE } from "../utils/constants";
 
+import PlayersTable from "../ui/PlayersTable";
+import Spinner from "../ui/Spinner";
+import PlayersTableOperations from "../ui/PlayersTableOperations";
+import Pagination from "../ui/Pagination";
+
 function Players() {
-  const [players, setPlayers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { getActivePlayers, players, isLoading } = useNba();
   const [searchParams] = useSearchParams();
 
   const currentPage = !searchParams.get("page")
     ? 1
     : Number(searchParams.get("page"));
 
-  useEffect(
-    function () {
-      async function fetchPlayers() {
-        setIsLoading(true);
-
-        const dataActivePlayers = await getActivePlayers();
-        setPlayers(dataActivePlayers);
-
-        setIsLoading(false);
-      }
-      fetchPlayers();
-    },
-    [currentPage]
-  );
+  useEffect(function () {
+    getActivePlayers();
+  }, []);
 
   if (isLoading) return <Spinner />;
   if (!players || players.lenght === 0) return;
@@ -69,17 +58,6 @@ function Players() {
           <div className="flex items-center justify-between my-4">
             <PlayersTableOperations />
             <Pagination count={sortedPlayers.length} />
-            {/* <div className="flex items-center gap-8">
-              <p className="opacity-70">Showing 1 to 10 of 537 results.</p>
-              <div className="flex gap-2">
-                <button className="cursor-pointer p-2 bg-stone-200 rounded-md">
-                  <HiChevronLeft className="text-2xl text-blue-500" />
-                </button>
-                <button className="cursor-pointer p-2 bg-stone-200 rounded-md">
-                  <HiChevronRight className="text-2xl text-blue-500" />
-                </button>
-              </div>
-            </div> */}
           </div>
         </div>
         <PlayersTable players={playersByPage} />

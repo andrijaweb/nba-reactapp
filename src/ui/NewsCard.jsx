@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function NewsCard({ singleNews, teams }) {
   if (!singleNews || singleNews.length === 0) return;
   if (!teams || teams.length === 0) return;
@@ -17,7 +19,9 @@ function NewsCard({ singleNews, teams }) {
   return (
     <article className="grid grid-cols-[3fr_9fr] mb-12">
       <div className="flex items-center justify-center">
-        <img className="max-w-[240px]" src={teamLogoUrl} alt="Team Logo" />
+        <Link to={`/teams/${teamId}`}>
+          <img className="max-w-[240px]" src={teamLogoUrl} alt="Team Logo" />
+        </Link>
       </div>
       <div className="text-stone-900 dark:text-stone-100">
         <p className="inline-block px-4 py-2 bg-blue-800 text-stone-100 rounded-full text-xs font-bold">

@@ -1,22 +1,13 @@
-import { useEffect, useState } from "react";
-import { getAllTeams } from "../services/apiBasketball";
+import { useEffect } from "react";
 import TeamsConference from "../ui/TeamsDivision";
 import Spinner from "../ui/Spinner";
+import { useNba } from "../contexts/nbaContext";
 
 function Teams() {
-  const [allTeams, setAllTeams] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { getAllTeams, teams, isLoading } = useNba();
 
   useEffect(function () {
-    async function fetchAllTeams() {
-      setIsLoading(true);
-
-      const dataTeams = await getAllTeams();
-      setAllTeams(dataTeams);
-
-      setIsLoading(false);
-    }
-    fetchAllTeams();
+    getAllTeams();
   }, []);
 
   if (isLoading) return <Spinner />;
@@ -27,7 +18,7 @@ function Teams() {
         All Teams
       </h1>
       <div className="grid grid-cols-[1fr] md:grid-cols-[1fr_1fr_1fr] sm:grid-colds-[1fr_1fr] gap-8">
-        <TeamsConference allTeams={allTeams} />
+        <TeamsConference teams={teams} />
       </div>
     </div>
   );

@@ -1,19 +1,14 @@
 import TeamMini from "./TeamMini";
 
-function TeamsConference({ allTeams }) {
-  if (allTeams.length === 0) return;
-  const atlanticTeam = allTeams.filter((team) => team.Division === "Atlantic");
-  const centralTeam = allTeams.filter((team) => team.Division === "Central");
-  const SouthEastTeam = allTeams.filter(
-    (team) => team.Division === "Southeast"
-  );
-  const northWestTeam = allTeams.filter(
-    (team) => team.Division === "Northwest"
-  );
-  const pacificTeam = allTeams.filter((team) => team.Division === "Pacific");
-  const southWestTeam = allTeams.filter(
-    (team) => team.Division === "Southwest"
-  );
+function TeamsConference({ teams }) {
+  if (teams.length === 0) return;
+
+  const atlanticTeam = teams.filter((team) => team.Division === "Atlantic");
+  const centralTeam = teams.filter((team) => team.Division === "Central");
+  const SouthEastTeam = teams.filter((team) => team.Division === "Southeast");
+  const northWestTeam = teams.filter((team) => team.Division === "Northwest");
+  const pacificTeam = teams.filter((team) => team.Division === "Pacific");
+  const southWestTeam = teams.filter((team) => team.Division === "Southwest");
 
   return (
     <>

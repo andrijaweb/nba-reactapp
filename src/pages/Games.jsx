@@ -2,29 +2,19 @@ import { useEffect, useState } from "react";
 import DateFilter from "../ui/DateFilter";
 import Spinner from "../ui/Spinner";
 
-import { getAllTeams, getBoxScores } from "../services/apiBasketball";
 import BoxScore from "../ui/BoxScore";
 import { formatDate } from "../utils/helpers";
+import { useNba } from "../contexts/nbaContext";
 
 function Games() {
   const [date, setDate] = useState(formatDate(new Date()));
-  const [isLoading, setIsLoading] = useState(false);
-  const [boxScores, setBoxScores] = useState(null);
-  const [teams, setTeams] = useState([]);
+
+  const { getAllTeams, teams, getBoxScores, boxScores, isLoading } = useNba();
 
   useEffect(
     function () {
-      async function fetchBoxScores() {
-        setIsLoading(true);
-        const dataBoxScores = await getBoxScores(date);
-        const dataTeams = await getAllTeams();
-
-        setBoxScores(dataBoxScores);
-        setTeams(dataTeams);
-
-        setIsLoading(false);
-      }
-      fetchBoxScores();
+      getAllTeams();
+      getBoxScores(date);
     },
     [date]
   );

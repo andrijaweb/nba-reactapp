@@ -1,23 +1,14 @@
-import { useEffect, useState } from "react";
-import { getAllTeams, getNews } from "../services/apiBasketball";
 import NewsCard from "../ui/NewsCard";
 import Spinner from "../ui/Spinner";
+import { useNba } from "../contexts/nbaContext";
+import { useEffect } from "react";
 
 function Homepage() {
-  const [news, setNews] = useState([]);
-  const [teams, setTeams] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { getAllTeams, getNews, news, teams, isLoading } = useNba();
 
   useEffect(function () {
-    async function fetchNews() {
-      setIsLoading(true);
-      const data = await getNews();
-      const dataTeams = await getAllTeams();
-      setNews(data);
-      setTeams(dataTeams);
-      setIsLoading(false);
-    }
-    fetchNews();
+    getAllTeams();
+    getNews();
   }, []);
 
   if (isLoading) return <Spinner />;
