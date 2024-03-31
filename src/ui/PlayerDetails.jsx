@@ -15,11 +15,11 @@ function PlayerDetails({ player }) {
   } = player;
 
   return (
-    <tr className="text-sm font-semibold text-stone-900 hover:bg-blue-50 transition-all duration-300">
+    <tr className="text-sm font-semibold text-stone-900 dark:text-stone-100 hover:bg-blue-50 dark:hover:bg-blue-500 transition-all duration-300">
       <td className="p-4 border-b border-t">
         {firstName} {lastName}
       </td>
-      <td className="p-4 border-b border-t text-blue-500">
+      <td className="p-4 border-b border-t text-blue-500 dark:text-blue-800">
         <Link to={`/teams/${teamId}`}>{team}</Link>
       </td>
       <td className="p-4 border-b border-t text-right">{jerseyNum}</td>

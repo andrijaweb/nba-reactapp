@@ -13,7 +13,7 @@ function Teams() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="mx-16 px-8 py-4 bg-white rounded-md">
+    <div className="px-8 py-4 bg-white dark:bg-stone-800 dark:text-stone-100 rounded-md">
       <h1 className="uppercase text-2xl font-bold mb-4 text-blue-800">
         All Teams
       </h1>

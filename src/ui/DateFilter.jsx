@@ -6,7 +6,7 @@ function DateFilter({ setDate, date }) {
   const sortedPastSevenDays = pastSevenDays.sort((a, b) => a - b);
 
   return (
-    <div className="px-8 bg-white rounded-md flex items-center justify-between">
+    <div className="px-8 bg-white dark:bg-stone-800 dark:text-stone-100 rounded-md flex items-center justify-between">
       <p className="flex items-center justify-center gap-2">
         <HiCalendarDays className="text-xl" />
         {getFormatedCurDate(date)}

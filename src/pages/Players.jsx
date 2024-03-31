@@ -49,8 +49,8 @@ function Players() {
   );
 
   return (
-    <div className="px-16">
-      <div className="p-8 rounded-md bg-white">
+    <div>
+      <div className="p-8 rounded-md bg-white dark:bg-stone-800 dark:text-stone-100">
         <h1 className="text-lg font-bold text-blue-800 uppercase">
           All Players:
         </h1>

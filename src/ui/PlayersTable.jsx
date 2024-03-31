@@ -6,7 +6,7 @@ function PlayersTable({ players }) {
   return (
     <table className="w-full border-collapse border-spacing-0 border-b">
       <thead>
-        <tr className="text-left bg-blue-200 rounded-md text-sm uppercase text-stone-700">
+        <tr className="text-left bg-blue-200 dark:bg-blue-800 rounded-md text-sm uppercase text-stone-700 dark:text-stone-200">
           <th className="p-4">Player</th>
           <th className="p-4">Team</th>
           <th className="p-4 text-right">Number</th>

@@ -14,7 +14,7 @@ function Homepage() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="px-16">
+    <section>
       <div className="text-stone-900 dark:text-stone-100 mb-24">
         <h1 className="max-w-screen-md mx-auto text-6xl font-bold text-center mb-8 text-blue-800">
           Latest News About Your Favourite Sport
@@ -33,7 +33,7 @@ function Homepage() {
           teams={teams}
         />
       ))}
-    </div>
+    </section>
   );
 }
 

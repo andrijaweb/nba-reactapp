@@ -5,7 +5,7 @@ function AppLayout() {
   return (
     <div className="min-h-screen bg-stone-100 dark:bg-stone-900">
       <Navbar />
-      <main className="max-w-screen-2xl mx-auto">
+      <main className="max-w-screen-2xl mx-auto px-16 py-8">
         <Outlet />
       </main>
     </div>

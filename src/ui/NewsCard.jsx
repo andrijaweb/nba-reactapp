@@ -20,7 +20,7 @@ function NewsCard({ singleNews, teams }) {
     <article className="grid grid-cols-[3fr_9fr] mb-12">
       <div className="flex items-center justify-center">
         <Link to={`/teams/${teamId}`}>
-          <img className="max-w-[240px]" src={teamLogoUrl} alt="Team Logo" />
+          <img className="max-w-[200px]" src={teamLogoUrl} alt="Team Logo" />
         </Link>
       </div>
       <div className="text-stone-900 dark:text-stone-100">

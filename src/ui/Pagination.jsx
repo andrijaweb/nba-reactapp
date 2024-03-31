@@ -33,18 +33,18 @@ function Pagination({ count }) {
       </p>
       <div className="flex gap-2">
         <button
-          className="cursor-pointer p-2 bg-stone-200 rounded-md"
+          className="cursor-pointer p-2 bg-stone-200 dark:bg-blue-800 rounded-md"
           onClick={prevPage}
           disabled={currentPage === 1}
         >
-          <HiChevronLeft className="text-2xl text-blue-500" />
+          <HiChevronLeft className="text-2xl text-blue-500 dark:text-stone-100" />
         </button>
         <button
-          className="cursor-pointer p-2 bg-stone-200 rounded-md"
+          className="cursor-pointer p-2 bg-stone-200 dark:bg-blue-800 rounded-md"
           onClick={nextPage}
           disabled={currentPage === pagesCount}
         >
-          <HiChevronRight className="text-2xl text-blue-500" />
+          <HiChevronRight className="text-2xl text-blue-500 dark:text-stone-100" />
         </button>
       </div>
     </div>

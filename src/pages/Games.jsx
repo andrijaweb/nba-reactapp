@@ -24,12 +24,12 @@ function Games() {
 
   return (
     <div>
-      <div className="px-16">
+      <section>
         <DateFilter date={date} setDate={setDate} />
         {boxScores.map((score, i) => (
           <BoxScore boxScore={score} teams={teams} key={i} />
         ))}
-      </div>
+      </section>
     </div>
   );
 }

@@ -24,7 +24,7 @@ function TeamHeader({ team, teamSeasonStats }) {
   }
 
   return (
-    <div className="mx-16 text-stone-900 bg-white rounded-md py-6 px-8 flex items-center justify-between">
+    <div className="mx-16 text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-800 rounded-md py-6 px-8 flex items-center justify-between">
       <div className="flex items-center gap-8">
         <div>
           <p
