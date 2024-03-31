@@ -1,8 +1,8 @@
 import { createContext, useContext, useReducer } from "react";
+import { API_KEY } from "../utils/config";
 
 const BASE_URL = "https://api.sportsdata.io/v3/nba/stats/json/";
 const SCORES_BASE_URL = "https://api.sportsdata.io/v3/nba/scores/json/";
-const API_KEY = "1b1692b63f9d497aab312a0b0efbed7a";
 
 const NbaContext = createContext();
 
