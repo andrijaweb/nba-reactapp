@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 const BASE_URL = "https://api.sportsdata.io/v3/nba/stats/json/";
 const SCORES_BASE_URL = "https://api.sportsdata.io/v3/nba/scores/json/";
@@ -6,62 +6,116 @@ const API_KEY = "1b1692b63f9d497aab312a0b0efbed7a";
 
 const NbaContext = createContext();
 
+const initialState = {
+  news: [],
+  teams: [],
+  players: [],
+  boxScores: null,
+  teamSeasonStats: [],
+  isLoading: false,
+  error: "",
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "loading":
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case "news/loaded":
+      return {
+        ...state,
+        isLoading: false,
+        news: action.payload,
+      };
+    case "teams/loaded":
+      return {
+        ...state,
+        isLoading: false,
+        teams: action.payload,
+      };
+    case "players/loaded":
+      return {
+        ...state,
+        isLoading: false,
+        players: action.payload,
+      };
+    case "boxScores/loaded":
+      return {
+        ...state,
+        isLoading: false,
+        boxScores: action.payload,
+      };
+    case "teamSeasonStats/loaded":
+      return {
+        ...state,
+        isLoading: false,
+        teamSeasonStats: action.payload,
+      };
+    case "rejected":
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    default:
+      throw new Error("Unknown action type!");
+  }
+}
+
 function NbaProvider({ children }) {
-  const [news, setNews] = useState([]);
-  const [teams, setTeams] = useState([]);
-  const [players, setPlayers] = useState([]);
-  const [boxScores, setBoxScores] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [teamSeasonStats, setTeamSeasonStats] = useState([]);
+  const [
+    { news, teams, players, boxScores, teamSeasonStats, isLoading },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   async function getAllTeams() {
+    dispatch({ type: "loading" });
+
     try {
-      setIsLoading(true);
       const res = await fetch(`${BASE_URL}/teams?key=${API_KEY}`);
       if (!res.ok) throw new Error("Error while trying to fetch AllTeams");
 
       const data = await res.json();
-      setTeams(data);
+      dispatch({ type: "teams/loaded", payload: data });
     } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
+      dispatch({ type: "rejected", payload: `${error}` });
     }
   }
 
   async function getNews() {
+    dispatch({ type: "loading" });
+
     try {
-      setIsLoading(true);
       const res = await fetch(`${BASE_URL}/News?key=${API_KEY}`);
       if (!res.ok) throw new Error("Error while trying to fetch News");
 
       const data = await res.json();
-      setNews(data);
+      dispatch({ type: "news/loaded", payload: data });
     } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
+      dispatch({ type: "rejected", error: `${error}` });
     }
   }
 
   async function getBoxScores(date) {
+    dispatch({ type: "loading" });
+
     try {
-      setIsLoading(true);
       const res = await fetch(`${BASE_URL}/BoxScores/${date}?key=${API_KEY}`);
       if (!res.ok) throw new Error("Error while trying to fetch BoxScores");
 
       const data = await res.json();
-      setBoxScores(data);
+      dispatch({ type: "boxScores/loaded", payload: data });
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   }
 
   async function getTeamSeasonStats() {
+    dispatch({ type: "loading" });
+
     try {
-      setIsLoading(true);
       const res = await fetch(
         `${BASE_URL}/TeamSeasonStats/2024?key=${API_KEY}`
       );
@@ -69,28 +123,25 @@ function NbaProvider({ children }) {
         throw new Error("Error while trying to fetch Team Season Stats.");
 
       const data = await res.json();
-      setTeamSeasonStats(data);
+      dispatch({ type: "teamSeasonStats/loaded", payload: data });
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   }
 
   async function getActivePlayers() {
+    dispatch({ type: "loading" });
+
     try {
-      setIsLoading(true);
       const res = await fetch(
         `${SCORES_BASE_URL}/PlayersActiveBasic?key=${API_KEY}`
       );
       if (!res.ok) throw new Error("Error while trying to fetch Players.");
 
       const data = await res.json();
-      setPlayers(data);
+      dispatch({ type: "players/loaded", payload: data });
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   }
 
